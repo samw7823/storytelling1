@@ -4,7 +4,10 @@ Storytelling with Streaming Data
 
 Exercise 1
 
-1. I chose to use the Meetup API to look at a stream of photos being uploaded to Meetup.com. 
+1. I chose to look at the Meetup API, and I looked both at the stream of data
+surrounding members RSVP-ing to different events as well as the data
+surrounding photos being uploaded. 
+I chose to use the Meetup API to look at a stream of photos being uploaded to Meetup.com. 
 Each individual message in the output represents a photo being uploaded to Meetup.com. The 
 stream outputs about 5 results per minute, with greater traffic at times when many photos 
 are being uploaded to the site. The API returns data about the meetup group or event that the 
@@ -13,7 +16,9 @@ the photo, along with additional data.
 
 2. Please run the script $ sh consume-meetup.sh
 The above commandline instruction will run a script that will output the names of the Meetup events that
-the photos were uploaded to.
+the members most recently RSVP-ed to. This script uses http://stream.meetup.com/2/rsvps and each message displays
+the name of the event that was just RSVP-ed to. I chose to use a loop so that I could include a sleep time that 
+could be monitored if I encourated problems with rate limiting. 
 
 3. I created an index.html page to display the results of the meetup API. The page displays the name of the event,
 the name of the member updating the group and the url of the photo being uploaded or updated. 
