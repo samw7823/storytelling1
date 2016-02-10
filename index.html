@@ -1,0 +1,42 @@
+<html>
+
+<head>
+    <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
+</head>
+
+<body>
+   
+	  <div class="container">
+        <h2>Check out what event photos are being updated on MeetUp!</h2>
+        <h3>(Event Name, Member Name): Url of photo that was updated</h4>
+        <ul id="list">
+        </ul>
+    </div>
+    <script>
+        //Create a socket to monitor changes to photos on Meetup.com
+       var ws = new WebSocket("ws://stream.meetup.com/2/photos"); 
+       ws.onmessage = function(e)
+        {
+            console.log(e.data);
+            //Defined obj which holds the parsed JSON data
+            var obj = JSON.parse(e.data);
+            //Added two outer if statements to avoid accessing undefined fields.
+            if (obj.photo_album && obj.member){
+                if (obj.photo_album.event){
+                    if (obj.photo_album.event.name && obj.member.name) {
+                        d3.select('#list')
+                            .insert('li', ":first-child")
+                            .text("(" + obj.photo_album.event.name + ", " + obj.member.name + ")")
+                            .append("div")
+                            .html("<a href='"+obj.photo_link + "'>new img</a>'")     
+
+                    }
+                }
+                
+            }   
+        }
+    </script>
+
+</body>
+
+</html>
